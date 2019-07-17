@@ -21,7 +21,7 @@ class Employee:
         if not_done_task:
             not_done_task[0].execute()
 
-    def add_task(self,task):
+    def add_task(self, task):
         self.task_list.append(task)
 
     @property
@@ -70,13 +70,11 @@ class Company:
     def add_task(self, task):
         self.task_list.append(task)
 
-    def dist_task(self):
-        for task in self.task_list:
-            self.emp_list[0].add_task(task)
+    def dist_task(self, task_to_distribute):
 
-
-
-
+        while task_to_distribute > 0:
+            self.emp_list[task_to_distribute % len(self.emp_list)].add_task(self.task_list.pop())
+            task_to_distribute -= 1
 
 
 if __name__ == '__main__':
@@ -89,8 +87,8 @@ if __name__ == '__main__':
     emp_1_list = []
     emp_2_list = []
     emp_3_list = []
-    emp_1 = SalariedEmployee("Łukasz", 42, emp_1_list)
-    emp_2 = HourlyEmployee("Tomasz", 39, emp_2_list)
+    emp_1 = SalariedEmployee("Łukasz", 42, emp_1_list, 500)
+    emp_2 = HourlyEmployee("Tomasz", 39, emp_2_list, 40, 13.50)
     #emp_3 = Employee("Przemo", 34, emp_3_list)
     my_emp_list = []
     my_task_list = []
@@ -103,3 +101,8 @@ if __name__ == '__main__':
     my_company.add_task(zad_4)
     emp_1.work()
     print(emp_1.points_sum)
+    my_company.dist_task(4)
+    for i in range(0, len(my_company.emp_list)):
+        print(my_company.emp_list[i].name)
+        for j in range(0, len(my_company.emp_list[i].task_list)):
+            print(my_company.emp_list[i].task_list[j].t_name)
