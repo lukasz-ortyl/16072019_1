@@ -1,3 +1,6 @@
+class TooManyTaskToDistribiuteException(Exception):
+    pass
+
 class Task:
     def __init__(self, t_name, point_no):
         self.t_name = t_name
@@ -71,6 +74,8 @@ class Company:
         self.task_list.append(task)
 
     def dist_task(self, task_to_distribute):
+        if task_to_distribute > len(self.task_list):
+            raise TooManyTaskToDistribiuteException()
 
         while task_to_distribute > 0:
             self.emp_list[task_to_distribute % len(self.emp_list)].add_task(self.task_list.pop())
@@ -101,8 +106,15 @@ if __name__ == '__main__':
     my_company.add_task(zad_4)
     emp_1.work()
     print(emp_1.points_sum)
-    my_company.dist_task(4)
+    try:
+        my_company.dist_task(10)
+    except TooManyTaskToDistribiuteException:
+        print("You entered too much tasks to distribute")
     for i in range(0, len(my_company.emp_list)):
         print(my_company.emp_list[i].name)
         for j in range(0, len(my_company.emp_list[i].task_list)):
             print(my_company.emp_list[i].task_list[j].t_name)
+
+    my_company.emp_list[0].work()
+    print(my_company.emp_list[0].points_sum)
+
