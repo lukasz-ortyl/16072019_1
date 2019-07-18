@@ -1,0 +1,3 @@
+Lukasz;20;100
+Przemo;21;200
+Tomasz;22;300

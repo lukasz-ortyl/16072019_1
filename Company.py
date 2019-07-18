@@ -46,7 +46,7 @@ class SalariedEmployee(Employee):
 
     @property
     def monty_salary(self):
-        return self.monty_salary * 4
+        return self.weekly_salary * 4
 
 class HourlyEmployee(Employee):
     def __init__(self, name, age, task_list, week_work_hrs, hour_salary):
@@ -60,6 +60,7 @@ class HourlyEmployee(Employee):
     @property
     def monty_salary(self):
         return self.hour_salary*self.week_work_hrs * 4
+
 
 class Company:
     def __init__(self, name, emp_list, task_list):
@@ -81,6 +82,29 @@ class Company:
             self.emp_list[task_to_distribute % len(self.emp_list)].add_task(self.task_list.pop())
             task_to_distribute -= 1
 
+    def work_all(self):
+        for employee in self.emp_list:
+            employee.work()
+
+    def print_emp(self):
+        for employee in self.emp_list:
+            print("My name is {}, I have{} tasks and {} points".format(employee.name, len(employee.task_list), employee.points_sum))
+            print()
+
+    @property
+    def monty_salary(self):
+        return sum([employee.monty_salary for employee in self.emp_list])
+
+
+    def write_report(self, path):
+
+        with open(path, 'w') as f:
+            for employee in self.emp_list:
+                f.write("{}\n".format(employee.describe()))
+
+
+
+
 
 if __name__ == '__main__':
     zad_1 = Task("Write Art", 140)
@@ -92,7 +116,7 @@ if __name__ == '__main__':
     emp_1_list = []
     emp_2_list = []
     emp_3_list = []
-    emp_1 = SalariedEmployee("Łukasz", 42, emp_1_list, 500)
+    emp_1 = SalariedEmployee("Lukasz", 42, emp_1_list, 500)
     emp_2 = HourlyEmployee("Tomasz", 39, emp_2_list, 40, 13.50)
     #emp_3 = Employee("Przemo", 34, emp_3_list)
     my_emp_list = []
@@ -118,3 +142,4 @@ if __name__ == '__main__':
     my_company.emp_list[0].work()
     print(my_company.emp_list[0].points_sum)
 
+    my_company.write_report("report.txt")
