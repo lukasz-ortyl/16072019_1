@@ -1,5 +1,6 @@
-class TooManyTaskToDistribiuteException(Exception):
+class TooManyTaskToDistributeException(Exception):
     pass
+
 
 class Task:
     def __init__(self, t_name, point_no):
@@ -9,6 +10,7 @@ class Task:
 
     def execute(self):
         self.is_done = True
+
 
 class Employee:
     def __init__(self, name, age, task_list):
@@ -76,7 +78,7 @@ class Company:
 
     def dist_task(self, task_to_distribute):
         if task_to_distribute > len(self.task_list):
-            raise TooManyTaskToDistribiuteException()
+            raise TooManyTaskToDistributeException()
 
         while task_to_distribute > 0:
             self.emp_list[task_to_distribute % len(self.emp_list)].add_task(self.task_list.pop())

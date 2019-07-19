@@ -34,18 +34,35 @@ def f(person):
     new_person.name = "Marcin"
 
 
+def g(person):
+    new_person = person
+    person = None
+    person = Student("Kamil")
+    person.name = "Wojciech"
+    new_person.name = ("Natalia")
+
+
+
 
 
 if __name__ == '__main__':
     p1 = Student("Piotr")
     p2 = Doctor("Ewa", 5000)
+    p3 = Student("Marysia")
 
-    p2 = p1 #Piotr
-    f(p1) #Marcin dla p1
-    print(p1.name) #Marcin
-    print(p2.name) #Marcin
+    p3 = p2
+    p2 = p1
+    p3 = p2
+    g(p3)
+
+    print(p2.name)
+    print(p3.name)
 
 
+#    p2 = p1 #Piotr
+#    f(p1) #Marcin dla p1
+#    print(p1.name) #Marcin
+#    print(p2.name) #Marcin
 
 
 #    student_list = [Student("Piotr"), Student("Ewa")]
